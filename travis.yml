@@ -1,0 +1,12 @@
+language: php
+php:
+  - '5.4'
+  - '5.6'
+  - '7.0'
+
+after_success:
+  - eval "$(ssh-agent -s)" #start the ssh agent
+  - chmod 600 .travis/deploy_key.pem # this key should have push access
+  - ssh-add .travis/deploy_key.pem
+  - git remote add deploy ssh://dewulfda@az1-ss1.a2hosting.com:7822/home/dewulfda/git/Test.git
+  - git push deploy
